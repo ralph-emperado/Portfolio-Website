@@ -1,0 +1,3 @@
+# Repo files that shouldn't be served on the live site
+*.md
+.gitignore

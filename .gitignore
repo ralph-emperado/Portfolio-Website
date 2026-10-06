@@ -1,0 +1,13 @@
+# Old site, design working files and local tooling: kept on this computer only (repo is public)
+_old-site/
+.impeccable/
+.claude/
+
+# Notes written for the old site (outdated)
+DESIGN.md
+PRODUCT.md
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini

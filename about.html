@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About | Ralph Emperado</title>
+<meta name="description" content="Ralph Emperado: web designer and automation specialist with an IT background, working with remote and international clients on AI automation, GoHighLevel, and websites.">
+<link rel="icon" href="assets/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+  /* intro */
+  .about{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,56px);align-items:center;min-height:calc(100vh - 136px)}
+  .about > *{min-width:0}
+  .pic{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;max-height:76vh}
+  .pic img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+  .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,14,.85),transparent 45%)}
+  .pic .cap{position:absolute;left:18px;bottom:16px;z-index:1}
+  .pic .cap b{display:block;font-size:18px;font-weight:800}
+  .pic .cap small{font-size:12px;color:var(--cta);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .about .sub{max-width:620px;line-height:1.7}
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;max-width:560px}
+  .nums div{padding:16px}
+  .nums b{display:block;font-size:30px;font-weight:900;color:var(--cta);line-height:1}
+  .nums span{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+  .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .caps{text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+
+  /* sections */
+  .sec{margin-top:clamp(56px,8vw,96px)}
+  .sec h2{font-size:clamp(26px,3.4vw,40px);font-weight:900;letter-spacing:-.02em;text-transform:uppercase;line-height:1.05;margin-bottom:28px}
+
+  /* what I bring */
+  .bring{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+  .bring .panel{grid-column:span 2;padding:22px 24px;transition:border-color .25s,transform .25s}
+  .bring .panel:nth-child(n+4){grid-column:span 3}
+  .bring .panel:hover{border-color:rgba(var(--accent-rgb),.5);transform:translateY(-2px)}
+  .bring h3{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:16px}
+  .bring h3 .ic{width:36px;height:36px;background:rgba(246,203,31,.15);border-color:rgba(246,203,31,.4);color:var(--cta)}
+  .bring .tools{display:flex;flex-wrap:wrap;gap:8px}
+  .tool{gap:8px;padding:6px 14px 6px 8px}
+  .tool img,.tool .fb{width:20px;height:20px;flex:none;border-radius:5px;background:#fff;object-fit:contain;padding:2px}
+  .tool .fb{display:grid;place-items:center;font-size:11px;font-weight:800;color:#000}
+  .bring .note{font-size:14px;color:var(--muted);line-height:1.6}
+
+  /* timeline */
+  .line{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
+  .line::before{content:"";position:absolute;left:24px;right:24px;top:23px;height:2px;background:linear-gradient(90deg,var(--accent),var(--cta))}
+  .step{position:relative}
+  .dot{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:2px solid var(--accent);box-shadow:0 0 0 6px rgba(var(--accent-rgb),.15);font-size:12px;font-weight:900;color:#fff;margin-bottom:16px}
+  .step:last-child .dot{border-color:var(--cta);box-shadow:0 0 0 6px rgba(246,203,31,.15),0 0 24px rgba(246,203,31,.35)}
+  .step .panel{padding:20px 22px}
+  .step b{display:block;font-size:13px;font-weight:900;letter-spacing:.16em;color:#a78bfa;margin-bottom:6px}
+  .step:last-child b{color:var(--cta)}
+  .step p{font-size:14px;color:var(--muted);line-height:1.6}
+
+  /* closing */
+  .band{margin-top:clamp(56px,8vw,96px);padding:30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-color:rgba(246,203,31,.3)}
+  .band h2{font-size:clamp(22px,2.4vw,28px);font-weight:900;text-transform:uppercase}
+  .band p{color:var(--muted);font-size:14px;margin-top:6px;max-width:520px}
+  .band .ctas{margin-top:0}
+
+  @media (max-width:1000px){.bring .panel,.bring .panel:nth-child(n+4){grid-column:span 3}}
+  @media (max-width:900px){.about{grid-template-columns:1fr;min-height:0}.pic{max-height:460px}}
+  @media (max-width:700px){
+    .bring{grid-template-columns:1fr}.bring .panel,.bring .panel:nth-child(n+4){grid-column:auto}
+    .line{grid-template-columns:1fr;gap:20px}.line::before{left:23px;right:auto;top:24px;bottom:24px;width:2px;height:auto;background:linear-gradient(180deg,var(--accent),var(--cta))}
+    .step{display:grid;grid-template-columns:48px 1fr;gap:14px}.dot{margin:0}
+    .nums b{font-size:24px}
+  }
+</style>
+</head>
+<body data-page="about">
+<main class="page">
+  <div class="about">
+    <figure class="pic rise"><img src="assets/img/headshot.jpg" alt="Ralph Emperado"><figcaption class="cap"><b>Ralph Emperado</b><small>AI &amp; Workflow · GHL Specialist</small></figcaption></figure>
+    <div>
+      <p class="kicker rise d1">About Me</p>
+      <h1 class="title rise d1">Ralph<br><span class="y">Emperado</span></h1>
+      <p class="sub rise d2">I'm Ralph Emperado, a web designer and automation specialist with a background in IT. I've been practicing web design since college and now work with remote and international clients to build and maintain reliable digital systems.</p>
+      <p class="sub rise d2">Most of my work now sits in AI and workflow automation and GoHighLevel support — building pipelines, workflows, and integrations that reduce manual work and keep follow-up consistent. Around that, I keep websites clean, functional, and easy to manage with ongoing maintenance.</p>
+      <p class="sub rise d3">I position myself as a freelancer, but I work with a long-term mindset — whether that's through ongoing retainers, extended support, or permanent roles where consistency and reliability matter.</p>
+      <div class="nums rise d3">
+        <div class="panel"><b>3+</b><span>Years experience</span></div>
+        <div class="panel"><b>5+</b><span>Projects completed</span></div>
+        <div class="panel"><b>5+</b><span>Clients satisfied</span></div>
+      </div>
+      <div class="ctas rise d4"><a class="btn btn-p caps" href="consult.html">Book a Discovery Call →</a><a class="btn btn-g caps" href="live-system.html">View Portfolio</a></div>
+    </div>
+  </div>
+
+  <section class="sec">
+    <p class="kicker">Skills &amp; Tools</p>
+    <h2>What I bring <span class="y" style="color:var(--cta)">to the table</span></h2>
+    <div class="bring" id="bring"></div>
+  </section>
+
+  <section class="sec">
+    <p class="kicker">My Journey</p>
+    <h2>How I got here</h2>
+    <div class="line">
+      <div class="step"><span class="dot">01</span><div class="panel"><b>THEN</b><p>Studied IT and started practicing web design in college — building sites for anyone who needed one.</p></div></div>
+      <div class="step"><span class="dot">02</span><div class="panel"><b>NEXT</b><p>Moved into freelance work: WordPress builds, maintenance retainers, and fixing systems that had grown messy.</p></div></div>
+      <div class="step"><span class="dot">03</span><div class="panel"><b>NOW</b><p>Working remotely with business owners, coaches, and service-based SMEs around the globe on websites, GoHighLevel, and automation.</p></div></div>
+    </div>
+  </section>
+
+  <div class="panel band">
+    <div>
+      <h2>Want to see the work?</h2>
+      <p>Have a look at the kinds of builds and systems I take on, or start a conversation about yours.</p>
+    </div>
+    <div class="ctas"><a class="btn btn-y caps" href="consult.html">Book a Discovery Call →</a><a class="btn btn-g caps" href="live-system.html">View Portfolio</a></div>
+  </div>
+</main>
+<script src="assets/js/site.js"></script>
+<script>
+  const ico={
+    bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+    funnel:'<path d="M3 4h18l-7 8v6l-4 2v-8z"/>',
+    screen:'<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>',
+    ads:'<path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1zM16 9a4 4 0 0 1 0 6"/>',
+    chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>'
+  };
+  // [title, icon, [[tool name, domain for its logo]...] or a note]
+  const groups=[
+    ['AI & Workflow Automation','bolt',[['Make','make.com'],['Zapier','zapier.com'],['n8n','n8n.io']]],
+    ['GoHighLevel & CRM Support','funnel',[['GoHighLevel','gohighlevel.com'],['Google Suite','workspace.google.com']]],
+    ['Web Design & Maintenance','screen',[['WordPress','wordpress.org'],['Elementor','elementor.com'],['Figma','figma.com'],['Canva','canva.com']]],
+    ['Paid Ads & Social Support','ads',[['Meta','meta.com'],['Google Ads','ads.google.com']]],
+    ['IT Background','chip','Studied IT before moving into web design and automation. It\'s the technical foundation under every build.']
+  ];
+  const svg=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+  const tool=([n,d])=>`<span class="chip tool"><img src="https://www.google.com/s2/favicons?domain=${d}&sz=64" alt="" onerror="this.outerHTML='<span class=fb>${n[0]}</span>'">${n}</span>`;
+  document.getElementById('bring').innerHTML=groups.map(([t,i,body])=>`
+    <div class="panel"><h3><span class="ic">${svg(ico[i])}</span>${t.replace('&','&amp;')}</h3>
+      ${Array.isArray(body)?`<div class="tools">${body.map(tool).join('')}</div>`:`<p class="note">${body}</p>`}</div>`).join('');
+</script>
+</body>
+</html>

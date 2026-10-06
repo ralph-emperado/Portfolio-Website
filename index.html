@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ralph Emperado | Portfolio</title>
+<meta name="description" content="Placeholder meta description for the home page.">
+<link rel="icon" href="assets/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+  .home{display:grid;grid-template-columns:1fr 1.1fr;align-items:center;gap:clamp(16px,3vw,40px);min-height:calc(100vh - 136px)}
+  .home > *{min-width:0}
+  .bigword{position:fixed;top:56px;left:calc(var(--side) + 30%);z-index:0;font-size:clamp(90px,13vw,200px);font-weight:900;letter-spacing:-.04em;color:rgba(var(--accent-rgb),.32);pointer-events:none;white-space:nowrap}
+  .avail{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);margin-bottom:22px}
+  .avail i{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e}
+  .hello{font-size:clamp(26px,3vw,40px);font-weight:800;font-style:italic;letter-spacing:-.02em}
+  .name{font-size:clamp(48px,7vw,96px);font-weight:900;line-height:.92;letter-spacing:-.04em;text-transform:uppercase;margin:4px 0 14px}
+  .role{font-size:clamp(13px,1.3vw,17px);font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--cta)}
+  .lead{margin-top:16px;font-size:clamp(16px,1.5vw,19px);font-weight:700;line-height:1.4;max-width:560px}
+  .home .sub{margin-top:8px;line-height:1.65}
+  .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .stack{margin-top:30px;padding:16px 18px;max-width:560px}
+  .stack small{display:block;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--faint);margin-bottom:10px}
+  .btn-caps{text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+  .tool{gap:8px;padding:6px 14px 6px 8px;white-space:nowrap}
+  .tool img,.tool .fb{width:20px;height:20px;flex:none;border-radius:5px;background:#fff;object-fit:contain;padding:2px}
+  .tool .fb{display:grid;place-items:center;font-size:11px;font-weight:800;color:#000}
+  .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+  /* padding-right = gap, so -50% lands exactly on the start of the duplicate set (no jump) */
+  .track{display:flex;gap:10px;padding-right:10px;width:max-content;animation:slide 30s linear infinite}
+  /* keep the tools strip rolling even when the OS asks for reduced motion */
+  @media (prefers-reduced-motion:reduce){.track{animation:slide 30s linear infinite!important}}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  /* right column: big portrait with the stats row underneath */
+  .visual{display:flex;flex-direction:column;align-items:center;align-self:stretch;justify-content:flex-end}
+  .portrait{position:relative;width:100%;height:min(66vh,640px);display:flex;justify-content:center;align-items:flex-end}
+  .portrait::before{content:"";position:absolute;left:12%;right:12%;top:12%;bottom:0;background:radial-gradient(closest-side,rgba(var(--accent-rgb),.5),transparent);filter:blur(40px)}
+  /* transparent cutout (assets/img/headshot-cutout.png): sits straight on the page */
+  .portrait img{position:relative;height:100%;width:100%;object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));mask-image:linear-gradient(to bottom,#000 82%,transparent)}
+  /* fallback photo with a baked-in background: crop in and fade every edge so no box shows */
+  .portrait.no-cutout img{object-fit:cover;object-position:50% 20%;filter:none;
+    mask-image:radial-gradient(ellipse 58% 72% at 50% 42%,#000 55%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 58% 72% at 50% 42%,#000 55%,transparent 100%)}
+  .stats{position:relative;width:100%;display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.4vw,34px);flex-wrap:wrap;margin-top:6px;padding-top:16px;border-top:1px solid var(--line)}
+  .stat{text-align:center}
+  .stat + .stat{padding-left:clamp(14px,2.4vw,34px);border-left:1px solid var(--line)}
+  .stats b{display:block;font-size:clamp(32px,3.4vw,48px);font-weight:900;line-height:1;color:var(--cta)}
+  .stats span{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+  .extras{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+  .social{display:flex;gap:8px}
+  .social a{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:11px;font-weight:800;color:var(--muted)}
+  .social a:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+  @media (max-width:1100px){.home{grid-template-columns:1fr 1fr}}
+  @media (max-width:760px){.home{grid-template-columns:1fr}.visual{order:-1}.portrait{height:440px}.bigword{display:none}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0}.stat + .stat{padding-left:0}.stats b{font-size:30px}.stats span{font-size:9px;letter-spacing:.08em}}
+</style>
+</head>
+<body data-page="home">
+<div class="bigword" aria-hidden="true">PORTFOLIO</div>
+<main class="page">
+  <div class="home">
+    <div>
+      <span class="avail rise"><i></i>Available for projects</span>
+      <p class="hello rise d1">Hello, I'm</p>
+      <h1 class="name rise d1">Ralph<br>Emperado</h1>
+      <p class="role rise d2">AI &amp; Workflow Specialist and GHL Specialist</p>
+      <p class="lead rise d2">I automate the busywork so you can focus on your business.</p>
+      <p class="sub rise d2">I build AI and workflow automations that eliminate repetitive daily tasks, manage and maintain your GoHighLevel CRM and systems, and create or redesign websites that work as hard as you do.</p>
+      <div class="ctas rise d3">
+        <a class="btn btn-p btn-caps" href="consult.html">Book a Free Consultation →</a>
+        <a class="btn btn-g btn-caps" href="live-system.html">See What I&#39;ve Built</a>
+      </div>
+      <div class="panel stack rise d4">
+        <small>TOOLS I WORK WITH</small>
+        <div class="marquee"><div class="track" id="track"></div></div>
+      </div>
+    </div>
+
+    <div class="visual">
+      <!-- Uses headshot-cutout.png (transparent background) when present; falls back to the regular headshot. -->
+      <div class="portrait rise d2"><img src="assets/img/headshot-cutout.png" alt="Portrait of Ralph Emperado" onerror="this.onerror=null;this.src='assets/img/headshot.jpg';this.parentElement.classList.add('no-cutout')"></div>
+      <div class="stats rise d3">
+        <div class="stat"><b>3+</b><span>Years experience</span></div>
+        <div class="stat"><b>5+</b><span>Projects completed</span></div>
+        <div class="stat"><b>5+</b><span>Clients satisfied</span></div>
+      </div>
+      <div class="extras rise d4">
+        <a class="btn btn-p" href="credentials.html">Certificates &amp; Badges</a>
+        <div class="social">
+          <a href="#" aria-label="Social link 1">FB</a><a href="#" aria-label="Social link 2">IN</a><a href="#" aria-label="Social link 3">WA</a><a href="#" aria-label="Social link 4">GH</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="assets/js/site.js"></script>
+<script>
+  // [name, domain]: logos come from each site's favicon. Swap in local files (e.g. assets/img/tools/zapier.svg) anytime.
+  const tools=[['Zapier','zapier.com'],['Make.com','make.com'],['n8n','n8n.io'],['Claude','claude.ai'],['OpenAI','openai.com'],
+    ['Riverside.fm','riverside.fm'],['Canva','canva.com'],['GoHighLevel','gohighlevel.com'],['WordPress','wordpress.org'],['ClickUp','clickup.com'],['Slack','slack.com']];
+  const chip=([n,d],i)=>`<span class="chip tool"${i>=tools.length?' aria-hidden="true"':''}><img src="https://www.google.com/s2/favicons?domain=${d}&sz=64" alt="" onerror="this.outerHTML='<span class=fb>${n[0]}</span>'">${n}</span>`;
+  document.getElementById('track').innerHTML=[...tools,...tools].map(chip).join('');
+</script>
+</body>
+</html>

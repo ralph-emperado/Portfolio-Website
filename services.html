@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services | Ralph Emperado</title>
+<meta name="description" content="AI & workflow automation, GoHighLevel & CRM support, website design & maintenance, and ongoing support. Every project is scoped around what you actually need.">
+<link rel="icon" href="assets/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+  .head .sub{max-width:640px}
+  .svc{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .s{display:flex;flex-direction:column;padding:26px 28px;transition:border-color .25s,transform .25s,box-shadow .25s}
+  .s:hover{border-color:rgba(var(--accent-rgb),.5);transform:translateY(-2px)}
+  /* core specialties get a stronger frame so they read first */
+  .s.core{border-color:rgba(var(--accent-rgb),.45);background:linear-gradient(160deg,rgba(var(--accent-rgb),.22),rgba(15,11,26,.8) 55%);box-shadow:0 18px 50px rgba(var(--accent-rgb),.18)}
+  .s.core:hover{border-color:rgba(var(--accent-rgb),.75);box-shadow:0 22px 60px rgba(var(--accent-rgb),.3)}
+  .s .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+  .s .ic{width:46px;height:46px;border-radius:13px;background:rgba(246,203,31,.15);border-color:rgba(246,203,31,.4);color:var(--cta)}
+  .s .ic svg{width:22px;height:22px}
+  .tag{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--faint)}
+  .core .tag{color:#000;background:var(--cta);border-color:var(--cta)}
+  .s h2{font-size:clamp(19px,1.8vw,23px);font-weight:900;letter-spacing:-.01em;text-transform:uppercase;line-height:1.15;margin-bottom:10px}
+  .s > p{font-size:14px;color:var(--muted);line-height:1.6;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:16px}
+  .s ul{list-style:none;display:grid;gap:10px}
+  .s li{font-size:13.5px;color:rgba(255,255,255,.78);display:flex;gap:11px;line-height:1.5}
+  .s li::before{content:"";width:16px;height:16px;margin-top:2px;flex:none;border-radius:50%;
+    background:rgba(var(--accent-rgb),.3) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4b5fd' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/10px no-repeat}
+  .s li b{color:#fff;font-weight:700}
+  .band{margin-top:26px;padding:28px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-color:rgba(246,203,31,.3)}
+  .band h3{font-size:clamp(20px,2.2vw,26px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
+  .band p{color:var(--muted);font-size:14px;margin-top:6px;max-width:520px}
+  .band .btn{text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+  @media (max-width:900px){.svc{grid-template-columns:1fr}.s{padding:22px}}
+</style>
+</head>
+<body data-page="services">
+<main class="page">
+  <header class="head">
+    <p class="kicker rise">Services</p>
+    <h1 class="title rise d1">What I can do for you,<br><span class="y">scope by scope.</span></h1>
+    <p class="sub rise d2">A clear breakdown of what each engagement covers. AI automation and GoHighLevel/CRM support come first, with website and ongoing support around them. Every project is scoped after we talk through what you actually need.</p>
+  </header>
+
+  <div class="svc">
+    <article class="panel s core rise d2" id="automation">
+      <div class="top">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <span class="tag">Core Specialty</span>
+      </div>
+      <h2>AI &amp; Workflow Automation</h2>
+      <p>Automation that handles the repetitive work so you can focus on running the business. Every workflow is scoped around the outcome, with clear handovers and documentation.</p>
+      <ul>
+        <li>Lead qualification and routing (tagging, scoring, owner assignment)</li>
+        <li>AI-assisted replies for email, SMS, DMs, and support tickets</li>
+        <li>Reporting automation: dashboards, notifications, and regular data summaries</li>
+        <li>Tool integrations via Make, Zapier, or n8n</li>
+        <li>Form-to-CRM, CRM-to-calendar, and app-to-app syncs</li>
+        <li>Error handling and fallback logic so workflows don't silently break</li>
+        <li>Documentation and walkthroughs so your team knows how it works</li>
+      </ul>
+    </article>
+
+    <article class="panel s core rise d3" id="ghl">
+      <div class="top">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span>
+        <span class="tag">Core Specialty</span>
+      </div>
+      <h2>GoHighLevel &amp; CRM Support</h2>
+      <p>Full GoHighLevel buildouts and ongoing management. I set up the pipeline, automations, and follow-up sequences so leads are handled consistently from first contact onward.</p>
+      <ul>
+        <li>Pipeline setup and stage definitions matched to your sales process</li>
+        <li>Workflow and automation builds inside GoHighLevel</li>
+        <li>Calendar, form, and booking page setup</li>
+        <li>Landing page and funnel builds within GoHighLevel</li>
+        <li>Email and SMS sequences (drip, follow-up, nurture, reactivation)</li>
+        <li>Tagging, segmentation, and list management</li>
+        <li>Ongoing account management, tweaks, and troubleshooting</li>
+      </ul>
+    </article>
+
+    <article class="panel s rise d3" id="web">
+      <div class="top">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+        <span class="tag">Service</span>
+      </div>
+      <h2>Website Design &amp; Maintenance</h2>
+      <p>Clean, fast, manageable websites that work as a reliable front end for your business. Built to be easy to update and supported over time.</p>
+      <ul>
+        <li>Website builds and redesigns (WordPress / Elementor, or other platforms)</li>
+        <li>Hosting and domain setup guidance or direct management</li>
+        <li>Performance, security, and mobile-responsiveness checks</li>
+        <li>Content updates, layout adjustments, and page additions</li>
+        <li>Ongoing maintenance: fixes, plugin updates, backups, and monitoring</li>
+        <li>Integration with forms, CRM, analytics, and tracking tools</li>
+      </ul>
+    </article>
+
+    <article class="panel s rise d4" id="support">
+      <div class="top">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="m5.6 5.6 3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/></svg></span>
+        <span class="tag">Service</span>
+      </div>
+      <h2>Ongoing Support</h2>
+      <p>A reliable pair of hands for your website, automations, and CRM. Support is scoped around keeping things running and making small improvements, not starting new builds from scratch.</p>
+      <ul>
+        <li>Monthly retainer covering updates, fixes, and minor optimisations</li>
+        <li>Response within agreed business hours for retainer clients</li>
+        <li><span><b>What counts as a fix:</b> broken forms, failed automations, site errors, content tweaks, and CRM misalignment</span></li>
+        <li><span><b>What counts as a new build:</b> new websites, major redesigns, new funnels, or large new automation projects</span></li>
+        <li>Regular check-ins and proactive suggestions where they fit</li>
+        <li>Clear handovers if you ever move the work in-house</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="panel band rise">
+    <div>
+      <h3>Not sure which one fits?</h3>
+      <p>Tell me where the friction is and I'll map out the right scope before anything gets built.</p>
+    </div>
+    <a class="btn btn-y" href="consult.html">Book a Discovery Call →</a>
+  </div>
+</main>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
