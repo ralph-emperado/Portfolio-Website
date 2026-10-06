@@ -1,3 +1,7 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/consult", "destination": "/contact#book", "permanent": true },
+    { "source": "/tools", "destination": "/", "permanent": true }
+  ]
 }

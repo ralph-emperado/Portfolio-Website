@@ -27,7 +27,7 @@
       <nav>${pages.map(([k, h, l]) => `<a href="${h}" data-label="${l}" aria-label="${l}" class="${k === cur ? 'on' : ''}">${svg(I[k])}</a>`).join('')}</nav>
       <div class="open"><i></i>OPEN<br>FOR WORK</div>
     </aside>
-    <a class="touch" href="consult.html">${svg('<path d="m5 12 14-8-4 16-3-6z"/>')} Get in touch</a>
+    <a class="touch" href="contact.html#book">${svg('<path d="m5 12 14-8-4 16-3-6z"/>')} Get in touch</a>
     <div class="dots">${pages.map(([k, h, l]) => `<a href="${h}" aria-label="${l}" class="${k === cur ? 'on' : ''}"></a>`).join('')}</div>`);
 
   // keyboard: arrow keys move between pages
