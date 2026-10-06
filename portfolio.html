@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio | Ralph Emperado</title>
+<meta name="description" content="Automations, websites and landing pages built by Ralph Emperado in Zapier, n8n, GoHighLevel and WordPress.">
+<link rel="icon" href="assets/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+  .head .sub{max-width:640px}
+
+  /* filters */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .filters button{cursor:pointer;transition:.2s}
+  .filters button:hover{border-color:rgba(255,255,255,.3)}
+  .filters button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .filters .n{opacity:.6;font-weight:600;margin-left:2px}
+
+  /* project tiles: same size, faded screenshot behind the text */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tile{position:relative;display:block;aspect-ratio:4/3;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#0c0915;cursor:pointer;text-align:left;padding:0;color:#fff;
+    transition:transform .25s,border-color .25s,box-shadow .25s}
+  .tile:hover,.tile:focus-visible{transform:translateY(-3px);border-color:rgba(var(--accent-rgb),.6);box-shadow:0 18px 50px rgba(var(--accent-rgb),.25);outline:none}
+  .tile .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.45;filter:saturate(.8);transition:opacity .35s,transform .6s}
+  .tile:hover .bg{opacity:.6;transform:scale(1.05)}
+  .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,14,.97) 8%,rgba(8,6,14,.75) 45%,rgba(8,6,14,.15) 100%)}
+  .tile .in{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;padding:18px 20px}
+  .pills{display:flex;gap:6px;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:4px 10px 4px 5px;border-radius:999px;background:rgba(8,6,14,.7);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);color:#fff}
+  .pill img{width:16px;height:16px;border-radius:4px;background:#fff;padding:1px}
+  .pill.kind{padding:4px 10px;color:#c4b5fd;background:rgba(var(--accent-rgb),.3);border-color:rgba(var(--accent-rgb),.5)}
+  .pill.flag{padding:4px 10px;background:var(--cta);border-color:var(--cta);color:#000;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+  .tile h3{margin-top:auto;font-size:17px;font-weight:900;text-transform:uppercase;line-height:1.2}
+  .tile .dom{font-size:11px;color:var(--faint);font-family:ui-monospace,monospace;margin-top:4px}
+  .tile p{font-size:13px;color:rgba(255,255,255,.72);line-height:1.5;margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .tile .more{font-size:11px;font-weight:700;color:var(--cta);margin-top:10px;opacity:0;transform:translateY(4px);transition:.25s}
+  .tile:hover .more,.tile:focus-visible .more{opacity:1;transform:none}
+
+  /* closing */
+  .band{margin-top:clamp(56px,8vw,96px);padding:30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-color:rgba(246,203,31,.3)}
+  .band h2{font-size:clamp(22px,2.4vw,28px);font-weight:900;text-transform:uppercase}
+  .band p{color:var(--muted);font-size:14px;margin-top:6px;max-width:520px}
+  .band .btn{text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+
+  /* automation modal: full workflow screenshot + full description */
+  .modal{position:fixed;inset:0;z-index:90;background:rgba(4,3,8,.88);backdrop-filter:blur(6px);display:none;place-items:center;padding:24px}
+  .modal.show{display:grid}
+  .sheet{position:relative;width:min(1100px,100%);max-height:calc(100vh - 48px);overflow:auto;border-radius:20px;border:1px solid rgba(var(--accent-rgb),.4);background:#0f0b1a;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+  .sheet .img{background:#0c0915;display:grid;place-items:center;padding:16px;border-bottom:1px solid var(--line)}
+  .sheet .img img{max-width:100%;max-height:60vh;object-fit:contain}
+  .sheet .txt{padding:24px 28px 28px}
+  .sheet h3{font-size:clamp(20px,2.4vw,26px);font-weight:900;text-transform:uppercase;line-height:1.15;margin:12px 0 10px}
+  .sheet p{font-size:15px;color:var(--muted);line-height:1.7}
+  .x{position:sticky;top:12px;float:right;margin:12px 12px -54px 0;z-index:2;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(8,6,14,.85);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+  .x:hover{background:var(--accent)}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .facts span{font-size:12px;font-weight:700;padding:6px 12px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+  .facts b{color:var(--cta)}
+  body.lock{overflow:hidden}
+
+  @media (max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:640px){.grid{grid-template-columns:1fr}.sheet .txt{padding:20px}}
+</style>
+</head>
+<body data-page="work">
+<main class="page">
+  <header class="head">
+    <p class="kicker rise">Portfolio</p>
+    <h1 class="title rise d1">Systems I build,<br><span class="y">and what they fix.</span></h1>
+    <p class="sub rise d2">Automations, websites, and pages I've built in Zapier, n8n, GoHighLevel, and WordPress. Click an automation to see the full workflow, or a website to visit it live.</p>
+  </header>
+
+  <div class="filters rise d2" id="filters" role="group" aria-label="Filter projects"></div>
+  <div class="grid" id="grid"></div>
+
+  <div class="panel band">
+    <div>
+      <h2>Have something similar in mind?</h2>
+      <p>Tell me where the friction is and I'll map out a practical plan before anything gets built.</p>
+    </div>
+    <a class="btn btn-y" href="contact.html#book">Start the Conversation →</a>
+  </div>
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="sheet">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <div class="img"><img id="m-img" alt=""></div>
+    <div class="txt"><div class="pills" id="m-pills"></div><h3 id="m-title"></h3><div class="facts" id="m-facts"></div><p id="m-desc" style="margin-top:12px"></p></div>
+  </div>
+</div>
+
+<script src="assets/js/site.js"></script>
+<script>
+  // Tool logos come from each tool's favicon.
+  const D={Zapier:'zapier.com',n8n:'n8n.io',Pipedrive:'pipedrive.com',Gmail:'gmail.com',OpenAI:'openai.com','Google Sheets':'sheets.google.com',
+    'Apollo.io':'apollo.io',Apify:'apify.com',WordPress:'wordpress.org',GoHighLevel:'gohighlevel.com'};
+  const W='assets/img/work/';
+  // Live sites use a WordPress mShots snapshot as the tile background.
+  const shotOf=url=>'https://s.wordpress.com/mshots/v1/'+encodeURIComponent(url)+'?w=1280';
+
+  // Automations open a modal with the full workflow. Fields: tool, img, title, short (tile), full (modal), more tools, flagship facts
+  const automations=[
+    {tool:'Zapier',img:W+'automation-1-new-deal-sms.png',t:'New Deal → SMS Alert + Auto-Logged Note',
+      short:'Texts the team the moment a Pipedrive deal is created, and logs the alert on the deal.',
+      full:"Automatically notifies the team via SMS when a new deal is created in Pipedrive, then logs the SMS as a note back on the deal — keeping every alert recorded on the deal's timeline.",more:['Pipedrive']},
+    {tool:'Zapier',img:W+'automation-2-lead-intake.png',t:'Smart Lead Intake with Contact Deduplication',
+      short:'Matches new inquiries to existing Pipedrive contacts so the CRM stays duplicate-free.',
+      full:'Checks incoming inquiries against existing Pipedrive contacts and branches automatically — linking matches to their existing deal, or creating a new Person and Deal — to keep the CRM free of duplicates.',more:['Pipedrive']},
+    {tool:'Zapier',img:W+'automation-3-email-ai-crm.png',t:'AI-Powered Email-to-CRM Capture',
+      short:'AI pulls lead details out of Gmail and creates the Person and Deal in Pipedrive.',
+      full:'Scans Gmail for matching leads, uses AI to extract contact details, and automatically creates a new Person and Deal in Pipedrive with zero manual data entry.',more:['Gmail','OpenAI','Pipedrive']},
+    {tool:'Zapier',img:W+'automation-4-sms-responder.png',t:'SMS Auto-Responder with CRM Context Lookup',
+      short:"Replies to incoming texts automatically, using the contact's deal and notes for context.",
+      full:'Looks up the matching contact, deal, and notes in Pipedrive when an SMS comes in, then sends an automatic, context-aware SMS reply.',more:['Pipedrive']},
+    {tool:'n8n',img:W+'n8n-google-maps-email-scraper.png',t:'Google Maps Automatic Email Scraper',
+      short:'Turns a list of search queries into a verified, deduplicated email lead list in Google Sheets.',
+      full:'Given a list of search queries, this workflow searches Google Maps for matching businesses, crawls each business website, extracts and deduplicates emails, filters out irrelevant addresses, and appends verified leads directly to a Google Sheet — turning any search query list into a ready-to-use lead list with zero manual scraping.',more:['Google Sheets']},
+    {tool:'n8n',img:W+'n8n-linkedin-leads-scraper.png',t:'LinkedIn Leads Scraping & Enrichment Engine',
+      short:'A 66-node, self-healing pipeline that turns one form submission into an AI-summarized LinkedIn profile.',
+      full:"A full-scale, self-healing lead generation and enrichment pipeline spanning 66 nodes and 6+ integrated services (Apollo.io, LinkedIn via RapidAPI with an Apify fallback, OpenAI, and Google Sheets). New leads captured from a form are pushed into Apollo.io, then the pipeline extracts and validates each lead's LinkedIn username and email address, pulls their LinkedIn profile and latest posts, and uses AI to generate profile and activity summaries. Failed or invalid rows are automatically reset and retried, and once a lead is fully enriched it's appended to a final leads database — turning a single form submission into a complete, AI-summarized LinkedIn profile with zero manual research.",
+      more:['Apollo.io','OpenAI','Apify','Google Sheets'],facts:[['66','nodes'],['6+','integrated services'],['Self-healing','retries']]}
+  ];
+
+  // Websites and pages open the live site. Fields: t, u (shown), href (link + screenshot), tool, d
+  const websites=[
+    {t:'Co-Lab VA',u:'colabva.online',href:'https://colabva.online/',tool:'WordPress',
+      d:'A website for a virtual assistant agency that places trained VAs with Australian businesses. It explains their services and steers visitors toward booking a free consultation.'},
+    {t:'Chris Kidd',u:'chris-kidd.com',href:'https://chris-kidd.com/',tool:'WordPress',
+      d:'A personal brand website for a business owner and entrepreneur. It introduces Chris, his ventures and track record, and gives people a clear way to work with him.'},
+    {t:'Contessa Finlay',u:'contessaoffical.com.au',href:'https://contessaoffical.com.au/',tool:'WordPress',
+      d:'A founder website for a Western Australian entrepreneur. It brings her ventures across multiple industries together in one place, with routes for partnership and business enquiries.'},
+    // Domain transfer in progress: links to the GoHighLevel preview for now.
+    // Once interactwellcare.com points to the new design, change href to 'https://interactwellcare.com/'.
+    {t:'Interact Well Care',u:'interactwellcare.com',href:'https://sites.leadconnectorhq.com/preview/Aayao3PilTcjVvPpy3v8?notrack=true',tool:'GoHighLevel',
+      d:'A website for a physician-led brain health and dementia care education service. It speaks to families, caregivers, and care organizations, with clear paths into its programs and resources.'}
+  ];
+  const pages=[
+    {t:'BECNT · Startups',u:'becnt.com.au/startups',href:'https://becnt.com.au/startups',tool:'GoHighLevel',
+      d:'A service page for people turning a business idea into a launch. It meets first-time founders where they are and walks them through clear, practical first steps.'},
+    {t:'BECNT · Early-Stage',u:'becnt.com.au/early-stage',href:'https://becnt.com.au/early-stage',tool:'GoHighLevel',
+      d:'A page for young Northern Territory businesses in their busiest, most chaotic phase. It names the common pain points and shows how support helps owners prioritise and grow.'},
+    {t:'BECNT · Growth',u:'becnt.com.au/growth',href:'https://becnt.com.au/growth',tool:'GoHighLevel',
+      d:'A page for established owners stuck firefighting. It speaks to the overwhelm of running a growing business and positions support around clarity, control, and leading again.'},
+    {t:'BECNT · Next Chapter',u:'becnt.com.au/becnt-next-chapter',href:'https://becnt.com.au/becnt-next-chapter',tool:'GoHighLevel',
+      d:'A page for Territory business owners planning their exit or succession. It offers calm, respectful guidance on protecting what they have built and preparing for what comes next.'},
+    {t:'BECNT · Regional Business Clinics',u:'becnt.com.au/regional-business-clinics',href:'https://becnt.com.au/regional-business-clinics-873873',tool:'GoHighLevel',
+      d:'A register-interest page for free one-on-one business clinics in four regional NT towns. Owners pick their town and what they need help with, and get notified when dates are set.'}
+  ];
+
+  const logo=n=>'https://www.google.com/s2/favicons?domain='+D[n]+'&sz=64';
+  const pill=n=>'<span class="pill"><img src="'+logo(n)+'" alt="">'+n+'</span>';
+  const flag='<span class="pill flag">Flagship</span>';
+
+  const autoTile=(a,i)=>'<button class="tile" type="button" data-auto="'+i+'" aria-label="'+a.t+': open full workflow">'+
+    '<img class="bg" src="'+a.img+'" alt="" loading="lazy">'+
+    '<span class="in"><span class="pills">'+pill(a.tool)+(a.facts?flag:'')+'</span>'+
+    '<h3>'+a.t+'</h3><p>'+a.short+'</p><span class="more">View full workflow →</span></span></button>';
+  const siteTile=(s,kind)=>'<a class="tile" href="'+s.href+'" target="_blank" rel="noopener" aria-label="'+s.t+': open live site in a new tab">'+
+    '<img class="bg" src="'+shotOf(s.href)+'" alt="" loading="lazy">'+
+    '<span class="in"><span class="pills">'+pill(s.tool)+'<span class="pill kind">'+kind+'</span></span>'+
+    '<h3>'+s.t+'</h3><span class="dom">'+s.u+' ↗</span><p>'+s.d+'</p><span class="more">Visit live site ↗</span></span></a>';
+
+  const groups={
+    Automations:automations.map(autoTile),
+    Websites:websites.map(s=>siteTile(s,'Website')),
+    Pages:pages.map(s=>siteTile(s,'Page'))
+  };
+  groups.All=[...groups.Websites,...groups.Automations,...groups.Pages];
+  const order=['All','Automations','Websites','Pages'];
+
+  const G=document.getElementById('grid'),F=document.getElementById('filters');
+  F.innerHTML=order.map(n=>'<button class="chip" type="button" data-f="'+n+'">'+n+' <span class="n">'+groups[n].length+'</span></button>').join('');
+  function show(name){
+    G.innerHTML=groups[name].join('');
+    F.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.f===name));
+  }
+  F.onclick=e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.f);history.replaceState(null,'',b.dataset.f==='All'?location.pathname:'#'+b.dataset.f.toLowerCase())};
+  // portfolio.html#automations / #websites / #pages opens that filter
+  const fromHash=order.find(n=>n.toLowerCase()===location.hash.slice(1).toLowerCase());
+  show(fromHash||'All');
+
+  // modal for automations
+  const M=document.getElementById('modal'),$=id=>document.getElementById(id);let last;
+  const open=i=>{const a=automations[i];last=document.activeElement;
+    $('m-img').src=a.img;$('m-img').alt=a.tool+' workflow: '+a.t;
+    $('m-pills').innerHTML=[a.tool,...a.more].map(pill).join('')+(a.facts?flag:'');
+    $('m-title').textContent=a.t;$('m-desc').textContent=a.full;
+    $('m-facts').innerHTML=a.facts?a.facts.map(([x,y])=>'<span><b>'+x+'</b> '+y+'</span>').join(''):'';
+    M.classList.add('show');document.body.classList.add('lock');M.querySelector('.x').focus()};
+  const close=()=>{M.classList.remove('show');document.body.classList.remove('lock');last&&last.focus()};
+  G.addEventListener('click',e=>{const t=e.target.closest('[data-auto]');if(t)open(+t.dataset.auto)});
+  M.addEventListener('click',e=>{if(e.target===M||e.target.closest('.x'))close()});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&M.classList.contains('show'))close()});
+</script>
+</body>
+</html>

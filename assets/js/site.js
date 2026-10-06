@@ -12,8 +12,7 @@
     contact: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>'
   };
   const pages = [
-    ['home', 'index.html', 'Home'], ['work', 'live-system.html', 'Portfolio'],
-    ['results', 'real-result.html', 'Real Result'], ['services', 'services.html', 'Services'],
+    ['home', 'index.html', 'Home'], ['work', 'portfolio.html', 'Portfolio'], ['services', 'services.html', 'Services'],
     ['credentials', 'credentials.html', 'Credentials'], ['testimonials', 'testimonials.html', 'Testimonials'],
     ['about', 'about.html', 'About me'], ['contact', 'contact.html', 'Contact']
   ];

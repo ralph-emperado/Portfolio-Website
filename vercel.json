@@ -1,6 +1,8 @@
 {
   "cleanUrls": true,
   "redirects": [
+    { "source": "/live-system", "destination": "/portfolio", "permanent": true },
+    { "source": "/real-result", "destination": "/portfolio", "permanent": true },
     { "source": "/consult", "destination": "/contact#book", "permanent": true },
     { "source": "/tools", "destination": "/", "permanent": true }
   ]
