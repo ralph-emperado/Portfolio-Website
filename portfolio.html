@@ -38,6 +38,24 @@
   .tile .more{font-size:11px;font-weight:700;color:var(--cta);margin-top:10px;opacity:0;transform:translateY(4px);transition:.25s}
   .tile:hover .more,.tile:focus-visible .more{opacity:1;transform:none}
 
+  /* graphics: artwork shown whole (not cropped) on the same-size tile */
+  .tile.gfx{aspect-ratio:4/5}
+  .tile.gfx .bg{inset:14px 14px 112px;width:calc(100% - 28px);height:calc(100% - 126px);object-fit:contain;object-position:center;opacity:1;filter:none;border-radius:10px}
+  .tile.gfx:hover .bg{opacity:1;transform:scale(1.03)}
+  .tile.gfx::after{display:none}
+  .tile.gfx .in{justify-content:flex-end;padding-top:0}
+  .tile.gfx .pills{margin-bottom:8px}
+  .tile.gfx h3{margin-top:0;font-size:15px}
+  .tile.gfx .more{display:none}
+  /* videos reuse the graphic tile; the first frame shows with a play button over it */
+  .tile.vid::after{display:block;inset:auto;left:50%;top:calc(50% - 49px);width:54px;height:54px;transform:translate(-50%,-50%);border-radius:50%;z-index:1;
+    background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/22px no-repeat;
+    box-shadow:0 0 0 8px rgba(var(--accent-rgb),.25),0 0 30px rgba(var(--accent-rgb),.6);transition:transform .2s}
+  .tile.vid:hover::after{transform:translate(-50%,-50%) scale(1.1)}
+  .sheet .img video{max-width:100%;max-height:70vh;background:#000;border-radius:10px}
+  .pill.txt{padding:4px 10px}
+  .empty{grid-column:1/-1;padding:40px 28px;text-align:center;color:var(--muted);font-size:15px;line-height:1.6}
+
   /* closing */
   .band{margin-top:clamp(56px,8vw,96px);padding:30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-color:rgba(246,203,31,.3)}
   .band h2{font-size:clamp(22px,2.4vw,28px);font-weight:900;text-transform:uppercase}
@@ -69,7 +87,7 @@
   <header class="head">
     <p class="kicker rise">Portfolio</p>
     <h1 class="title rise d1">Systems I build,<br><span class="y">and what they fix.</span></h1>
-    <p class="sub rise d2">Automations, websites, and pages I've built in Zapier, n8n, GoHighLevel, and WordPress. Click an automation to see the full workflow, or a website to visit it live.</p>
+    <p class="sub rise d2">Automations, websites, and pages I've built in Zapier, n8n, GoHighLevel, and WordPress. Click an automation to see the full workflow, a website to visit it live, or browse the marketing graphics and videos I've produced.</p>
   </header>
 
   <div class="filters rise d2" id="filters" role="group" aria-label="Filter projects"></div>
@@ -87,7 +105,7 @@
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
   <div class="sheet">
     <button class="x" type="button" aria-label="Close">×</button>
-    <div class="img"><img id="m-img" alt=""></div>
+    <div class="img"><img id="m-img" alt=""><video id="m-vid" controls playsinline preload="none" style="display:none"></video></div>
     <div class="txt"><div class="pills" id="m-pills"></div><h3 id="m-title"></h3><div class="facts" id="m-facts"></div><p id="m-desc" style="margin-top:12px"></p></div>
   </div>
 </div>
@@ -150,6 +168,68 @@
       d:'A register-interest page for free one-on-one business clinics in four regional NT towns. Owners pick their town and what they need help with, and get notified when dates are set.'}
   ];
 
+  // Marketing graphics from past engagements. Drop files in assets/img/graphics/ and add one line per graphic.
+  // Fields: img (file name), t (title), client (optional), type (optional, e.g. 'Social Post'), d (optional caption shown when opened)
+  // Example: {img:'becnt-launch-post.png',t:'Launch Announcement',client:'BECNT',type:'Social Post',d:'Announcement graphic for the program launch.'},
+  const GF='assets/img/graphics/';
+  const graphics=[
+    {img:'becnt-doing-business-with-government.webp',t:'Doing Business with Government',client:'BECNT',type:'Event Promo',d:'Event graphic for a free Q&A and networking session in Katherine during October Business Month.'},
+    {img:'becnt-youth-entrepreneurship-expo.webp',t:'Youth Entrepreneurship Workshops + Expo',client:'BECNT',type:'Event Promo',d:'Event graphic for a free youth entrepreneurship and small business expo in Alice Springs.'},
+    {img:'becnt-21-days-until-startup-september.webp',t:'21 Days Until Startup September',client:'BECNT',type:'Event Promo: Startup September',d:'Three-week countdown asking people what business idea they haven’t started yet.'},
+    {img:'becnt-got-a-business-idea.webp',t:'Got a Business Idea Rattling Around?',client:'BECNT',type:'Event Promo: Startup September',d:'Launch-event announcement for Startup September at Darwin Innovation Hub.'},
+    {img:'becnt-myth-vs-reality.webp',t:'Myth vs Reality',client:'BECNT',type:'Event Promo: Startup September',d:'Myth-busting post: you don’t need everything figured out before you start.'},
+    {img:'becnt-most-people-dont-fail.webp',t:'Most People Don’t Fail. They’re Overwhelmed.',client:'BECNT',type:'Event Promo: Startup September',d:'Awareness post on why Startup September exists, with a tag-a-friend call to action.'},
+    {img:'becnt-what-free-gets-you.png',t:'What Free Gets You',client:'BECNT',type:'Event Promo: Startup September',d:'Post listing what participants get from the free Startup September program.'},
+    {img:'becnt-idea-to-business-in-30-days.png',t:'Idea to Business in 30 Days',client:'BECNT',type:'Event Promo: Startup September',d:'Registrations-open announcement for the Startup September program.'},
+    {img:'becnt-what-could-you-build-in-30-days.png',t:'What Could You Build in 30 Days?',client:'BECNT',type:'Event Promo: Startup September',d:'Startup September post listing what participants walk away with.'},
+    {img:'becnt-still-making-money-for-someone-else.png',t:'Still Making Money for Someone Else?',client:'BECNT',type:'Event Promo: Startup September',d:'Attention-grabbing question post to drive Startup September sign-ups.'},
+    {img:'becnt-waiting-till-figured-out.png',t:'Waiting Till You’ve Got It All Figured Out?',client:'BECNT',type:'Event Promo: Startup September',d:'Startup September post aimed at people holding off on starting.'},
+    {img:'becnt-last-call.png',t:'Last Call',client:'BECNT',type:'Event Promo: Startup September',d:'Registrations-closing reminder for Startup September.'},
+    {img:'becnt-starts-friday-28-august.webp',t:'Starts Friday 28 August',client:'BECNT',type:'Event Promo: Startup September',d:'Last-call graphic with the program start date.'},
+    {img:'becnt-one-week-to-go.webp',t:'One Week to Go',client:'BECNT',type:'Event Promo: Startup September',d:'One-week countdown for the Startup September launch.'},
+    {img:'becnt-48-hours-until-launch.webp',t:'48 Hours Until Launch',client:'BECNT',type:'Event Promo: Startup September',d:'Two-day countdown for the Startup September launch night.'},
+    {img:'becnt-the-launch.png',t:'The Launch',client:'BECNT',type:'Event Promo: Startup September',d:'Launch event graphic for Startup September at Darwin Innovation Hub.'},
+    {img:'becnt-startup-september-starts-tonight.webp',t:'Startup September Starts Tonight',client:'BECNT',type:'Event Promo: Startup September',d:'Launch-day poster for Startup September.'},
+    {img:'becnt-todays-the-day.png',t:'Today’s the Day',client:'BECNT',type:'Event Promo: Startup September',d:'Week 2 progress post for the Startup September program.'},
+    {img:'becnt-five-years-real-businesses.png',t:'Five Years. Real Territory Businesses.',client:'BECNT',type:'Event Promo: Startup September',d:'Program milestone post for Startup September.'},
+    {img:'becnt-your-ai-employee.png',t:'Your AI Employee',client:'BECNT',type:'Event Promo: Startup September',d:'Online workshop graphic on AI agents for startups.'},
+    {img:'becnt-cash-systems-innovation-planning.png',t:'Cash, Systems, Innovation & Planning',client:'BECNT',type:'Event Promo: Startup September',d:'Final live workshop graphic for Startup September.'},
+    {img:'becnt-networking-night.png',t:'Networking Night',client:'BECNT',type:'Event Promo: Startup September',d:'Closing networking night for Startup September at Darwin Innovation Hub.'},
+    {img:'becnt-carousel-1-is-there-a-market.webp',t:'Is There a Market?',client:'BECNT',type:'Carousel 1/6',d:'Slide from the Build Smarter Ideas educational carousel.'},
+    {img:'becnt-carousel-2-who-is-your-customer.webp',t:'Who Is Your Customer?',client:'BECNT',type:'Carousel 2/6',d:'Slide from the Build Smarter Ideas educational carousel.'},
+    {img:'becnt-carousel-3-why-choose-you.webp',t:'Why Choose You?',client:'BECNT',type:'Carousel 3/6',d:'Slide from the Build Smarter Ideas educational carousel.'},
+    {img:'kings-one-team-no-middlemen.webp',t:'One Team. No Middlemen.',client:'Kings Roller Shutters',type:'Ad Creative',d:'Brand ad: the same team quotes, builds and installs.'},
+    {img:'kings-myth-vs-made-airflow.webp',t:'Myth vs Made: Airflow',client:'Kings Roller Shutters',type:'Social Post',d:'Myth-busting post on roller shutters and ventilation.'},
+    {img:'kings-stop-the-heat-flyer.webp',t:'Stop the Heat Before It Enters',client:'Kings Roller Shutters',type:'Ad Creative',d:'Summer climate-control flyer with services and a free measure and quote offer.'},
+    {img:'kings-stop-heat-before-glass.webp',t:'Stop the Heat Before It Hits the Glass',client:'Kings Roller Shutters',type:'Infographic',d:'Inside blind vs roller shutter: where the heat gets stopped.'},
+    {img:'kings-shutters-or-security-screens.webp',t:'Roller Shutters or Security Screens?',client:'Kings Roller Shutters',type:'Infographic',d:'Side-by-side comparison to help homeowners choose.'},
+    {img:'kings-heat-light-noise-out.png',t:'Heat Out. Light Out. Noise Out.',client:'Kings Roller Shutters',type:'Ad Creative',d:'Product benefits ad with a free measure and quote call to action.'},
+    {img:'kings-outdoor-blinds.png',t:'Outdoor Blinds. All Year Round.',client:'Kings Roller Shutters',type:'Ad Creative',d:'Outdoor blinds ad focused on turning the alfresco into a usable room.'},
+    {img:'kings-changed-the-light.png',t:'Changed Their Clocks. Changed the Light.',client:'Kings Roller Shutters',type:'Social Post',d:'Timely daylight-saving post for blockout roller shutters.'},
+    {img:'kings-review-martino-obrien.png',t:'5-Star Google Review',client:'Kings Roller Shutters',type:'Testimonial Post',d:'Customer review turned into a branded social post.'},
+    {img:'kings-review-daniel-payne.png',t:'“Exactly What I Was After”',client:'Kings Roller Shutters',type:'Testimonial Post',d:'Customer review paired with a finished install photo.'},
+    {img:'kings-summer-prep-1-40-degrees.png',t:'Three Things to Sort Before the First 40-Degree Day',client:'Kings Roller Shutters',type:'Carousel 1/5',d:'Summer Prep carousel cover slide.'},
+    {img:'kings-summer-prep-2-west-facing.webp',t:'West-Facing Windows',client:'Kings Roller Shutters',type:'Carousel 2/5',d:'Summer Prep carousel: roller shutters for afternoon sun.'},
+    {img:'kings-summer-prep-3-alfresco.webp',t:'The Alfresco',client:'Kings Roller Shutters',type:'Carousel 3/5',d:'Summer Prep carousel: outdoor blinds for the alfresco.'},
+    {img:'kings-summer-prep-4-doors-sliders.webp',t:'Doors and Sliders',client:'Kings Roller Shutters',type:'Carousel 4/5',d:'Summer Prep carousel: security screens for doors and sliders.'},
+    {img:'kings-summer-prep-5-sorted.png',t:'Sorted Before Summer',client:'Kings Roller Shutters',type:'Carousel 5/5',d:'Summer Prep carousel closing slide with a quote call to action.'},
+    {img:'kings-carousel-1-time-to-replace.webp',t:'Is It Time to Replace Your Shutters?',client:'Kings Roller Shutters',type:'Carousel 1/5',d:'Cover slide of the shutter replacement signs carousel.'},
+    {img:'kings-carousel-2-forcing-open-by-hand.webp',t:'You’re Forcing Them Open by Hand',client:'Kings Roller Shutters',type:'Carousel 2/5',d:'Slide from the shutter replacement signs carousel.'},
+    {img:'kings-carousel-3-motor-louder.webp',t:'The Motor’s Louder Than It Used to Be',client:'Kings Roller Shutters',type:'Carousel 3/5',d:'Slide from the shutter replacement signs carousel.'},
+    {img:'kings-carousel-4-slats-dented.webp',t:'The Slats Are Dented or Jammed',client:'Kings Roller Shutters',type:'Carousel 4/5',d:'Slide from the shutter replacement signs carousel.'},
+    {img:'kings-carousel-5-free-measure.webp',t:'Free Measure. No Obligation.',client:'Kings Roller Shutters',type:'Carousel 5/5',d:'Closing slide of the shutter replacement signs carousel.'}
+  ];
+
+  // Videos for FBP (Andrew Jepson). Files live in assets/video/fbp/. Fields: file, t (title), dur (shown on the tile), client, type, d (optional)
+  const VF='assets/video/fbp/';
+  const videos=[
+    {file:'open-vs-closed.mp4',t:'Open vs Closed',dur:'0:38',client:'FBP · Andrew Jepson',type:'Captioned Clip'},
+    {file:'careful-with-why.mp4',t:'Bonus: Careful With Why',dur:'0:15',client:'FBP · Andrew Jepson',type:'Video'},
+    {file:'mirroring-trick.mp4',t:'The Mirroring Trick',dur:'0:46',client:'FBP · Andrew Jepson',type:'Captioned Clip'},
+    {file:'so-what-you-said-was.mp4',t:'So, What You Said Was…',dur:'0:53',client:'FBP · Andrew Jepson',type:'Captioned Clip'},
+    {file:'einstein-opener.mp4',t:'The Einstein Opener',dur:'0:46',client:'FBP · Andrew Jepson',type:'Captioned Clip'}
+  ];
+
   const logo=n=>'https://www.google.com/s2/favicons?domain='+D[n]+'&sz=64';
   const pill=n=>'<span class="pill"><img src="'+logo(n)+'" alt="">'+n+'</span>';
   const flag='<span class="pill flag">Flagship</span>';
@@ -163,18 +243,31 @@
     '<span class="in"><span class="pills">'+pill(s.tool)+'<span class="pill kind">'+kind+'</span></span>'+
     '<h3>'+s.t+'</h3><span class="dom">'+s.u+' ↗</span><p>'+s.d+'</p><span class="more">Visit live site ↗</span></span></a>';
 
+  const gfxTile=(g,i)=>'<button class="tile gfx" type="button" data-gfx="'+i+'" aria-label="'+g.t+': view full graphic">'+
+    '<img class="bg" src="'+GF+g.img+'" alt="" loading="lazy">'+
+    '<span class="in"><span class="pills"><span class="pill kind">Graphic</span>'+(g.type?'<span class="pill txt">'+g.type+'</span>':'')+'</span>'+
+    '<h3>'+g.t+'</h3>'+(g.client?'<span class="dom">'+g.client+'</span>':'')+'<span class="more">View full graphic →</span></span></button>';
+
+  const vidTile=(v,i)=>'<button class="tile gfx vid" type="button" data-vid="'+i+'" aria-label="'+v.t+': play video">'+
+    '<video class="bg" src="'+VF+v.file+'#t=1" preload="metadata" muted playsinline tabindex="-1" aria-hidden="true"></video>'+
+    '<span class="in"><span class="pills"><span class="pill kind">Video</span>'+(v.type&&v.type!=='Video'?'<span class="pill txt">'+v.type+'</span>':'')+(v.dur?'<span class="pill txt">'+v.dur+'</span>':'')+'</span>'+
+    '<h3>'+v.t+'</h3>'+(v.client?'<span class="dom">'+v.client+'</span>':'')+'</span></button>';
+
   const groups={
     Automations:automations.map(autoTile),
     Websites:websites.map(s=>siteTile(s,'Website')),
-    Pages:pages.map(s=>siteTile(s,'Page'))
+    Pages:pages.map(s=>siteTile(s,'Page')),
+    Graphics:graphics.map(gfxTile),
+    Videos:videos.map(vidTile)
   };
-  groups.All=[...groups.Websites,...groups.Automations,...groups.Pages];
-  const order=['All','Automations','Websites','Pages'];
+  // Graphics, then videos, always come last in All so websites and workflows are seen first.
+  groups.All=[...groups.Websites,...groups.Automations,...groups.Pages,...groups.Graphics,...groups.Videos];
+  const order=['All','Automations','Websites','Pages','Graphics','Videos'];
 
   const G=document.getElementById('grid'),F=document.getElementById('filters');
   F.innerHTML=order.map(n=>'<button class="chip" type="button" data-f="'+n+'">'+n+' <span class="n">'+groups[n].length+'</span></button>').join('');
   function show(name){
-    G.innerHTML=groups[name].join('');
+    G.innerHTML=groups[name].length?groups[name].join(''):'<div class="panel empty">Marketing graphics from past engagements are being added here soon.</div>';
     F.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.f===name));
   }
   F.onclick=e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.f);history.replaceState(null,'',b.dataset.f==='All'?location.pathname:'#'+b.dataset.f.toLowerCase())};
@@ -184,14 +277,30 @@
 
   // modal for automations
   const M=document.getElementById('modal'),$=id=>document.getElementById(id);let last;
-  const open=i=>{const a=automations[i];last=document.activeElement;
-    $('m-img').src=a.img;$('m-img').alt=a.tool+' workflow: '+a.t;
+  // the pop-up shows either an image or a video
+  const asVideo=on=>{$('m-img').style.display=on?'none':'';$('m-vid').style.display=on?'':'none'};
+  const open=i=>{const a=automations[i];last=document.activeElement;asVideo(false);
+    $('m-img').src=a.img;$('m-img').alt=a.tool+' workflow: '+a.t;$('m-desc').style.display='';
     $('m-pills').innerHTML=[a.tool,...a.more].map(pill).join('')+(a.facts?flag:'');
     $('m-title').textContent=a.t;$('m-desc').textContent=a.full;
     $('m-facts').innerHTML=a.facts?a.facts.map(([x,y])=>'<span><b>'+x+'</b> '+y+'</span>').join(''):'';
     M.classList.add('show');document.body.classList.add('lock');M.querySelector('.x').focus()};
-  const close=()=>{M.classList.remove('show');document.body.classList.remove('lock');last&&last.focus()};
-  G.addEventListener('click',e=>{const t=e.target.closest('[data-auto]');if(t)open(+t.dataset.auto)});
+  const openGfx=i=>{const g=graphics[i];last=document.activeElement;asVideo(false);
+    $('m-img').src=GF+g.img;$('m-img').alt=g.t+(g.client?' for '+g.client:'');
+    $('m-pills').innerHTML='<span class="pill kind">Graphic</span>'+(g.type?'<span class="pill txt">'+g.type+'</span>':'');
+    $('m-title').textContent=g.t+(g.client?' · '+g.client:'');
+    $('m-facts').innerHTML='';$('m-desc').textContent=g.d||'';$('m-desc').style.display=g.d?'':'none';
+    M.classList.add('show');document.body.classList.add('lock');M.querySelector('.x').focus()};
+  const openVid=i=>{const v=videos[i];last=document.activeElement;asVideo(true);
+    const p=$('m-vid');p.src=VF+v.file;p.setAttribute('aria-label',v.t+(v.client?' for '+v.client:''));
+    $('m-pills').innerHTML='<span class="pill kind">Video</span>'+(v.type&&v.type!=='Video'?'<span class="pill txt">'+v.type+'</span>':'');
+    $('m-title').textContent=v.t+(v.client?' · '+v.client:'');
+    $('m-facts').innerHTML='';$('m-desc').textContent=v.d||'';$('m-desc').style.display=v.d?'':'none';
+    M.classList.add('show');document.body.classList.add('lock');p.play().catch(()=>{});M.querySelector('.x').focus()};
+  const close=()=>{const p=$('m-vid');p.pause();p.removeAttribute('src');p.load();
+    M.classList.remove('show');document.body.classList.remove('lock');last&&last.focus()};
+  G.addEventListener('click',e=>{const t=e.target.closest('[data-auto]'),g=e.target.closest('[data-gfx]'),v=e.target.closest('[data-vid]');
+    if(t)open(+t.dataset.auto);else if(g)openGfx(+g.dataset.gfx);else if(v)openVid(+v.dataset.vid)});
   M.addEventListener('click',e=>{if(e.target===M||e.target.closest('.x'))close()});
   addEventListener('keydown',e=>{if(e.key==='Escape'&&M.classList.contains('show'))close()});
 </script>
